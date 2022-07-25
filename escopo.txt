@@ -1,0 +1,66 @@
+CREATE TABLE supermercado(
+    cnpj integer,
+    rua varchar[50],
+    num integer,
+    bairro varchar[20],
+    lotacaomax integer,
+    nome varchar[50],
+    primary key (cnpj)
+);
+
+CREATE TABLE produtos(
+    codigoprod integer,
+    nome varchar[50],
+    qntd integer,
+    valorunit integer,
+    primary key (codigoprod)
+
+);
+
+CREATE TABLE clientes(
+    cpf integer,
+    id integer,
+    nome varchar[50],
+    primary key (id)
+    
+);
+
+
+CREATE TABLE fornecedores(
+    codempresa integer,
+    nome varchar[50],
+    cnpj integer,
+    rua varchar[50],
+    num integer,
+    bairro varchar[20],
+    cidade varchar[20],
+    primary key (codempresa)
+);
+
+CREATE TABLE vendas( 
+    id_venda serial,
+    datavenda varchar[8],
+    qntdVenda integer,  
+    codigoprod integer,
+    codempresa integer,
+    cnpj integer,
+    primary key (id_venda),
+    foreign key (codigoprod) references produtos (codigoprod),
+    foreign key (codempresa) references fornecedores (codempresa),
+    foreign key (cnpj) references supermercado (cnpj)
+   
+);
+
+CREATE TABLE compras(
+    id_compra serial,
+    datacompra varchar[8],
+    formapag varchar[20],
+    qntdcompra integer,
+    codigoprod integer,
+    id_cliente integer,
+    cnpj integer,
+    primary key (id_compra), 
+    foreign key (codigoprod) references produtos (codigoprod),
+    foreign key (id_cliente) references clientes (id),
+    foreign key (cnpj) references supermercado (cnpj)
+);
